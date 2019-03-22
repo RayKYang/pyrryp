@@ -9,15 +9,33 @@
 #' @export
 rpy <- function(R_code){
   code <- dplyr::case_when(
-    # 1.1 directory
-    # rpy("getwd")
-    R_code == "getwd" ~ " [check working directory - Python Code]
-    import os
-    os.getcwd()",
-    # rpy("setwd")
-    R_code == "setwd" ~ " [set working directory - Python Code]
-    import os
-    os.chdir()",
+  # 1.1 directory #####
+   # rpy("getwd")
+   R_code == "getwd" ~ " [Check Working Directory - Python Code]
+   import os
+   os.getcwd()",
+   # rpy("setwd")
+   R_code == "setwd" ~ " [Set Working Directory - Python Code]
+   import os
+   os.chdir()",
+
+  # 1.2 paste #####
+  # rpy("paste")
+  R_code == "paste" ~ " [Concatenate Strings (multiple usage) - Python Code]
+   # usage 1: concatenate strings, equivalent to { paste(1, ' ', 'a') }
+   str(1) + ' ' + 'a'
+
+   # usage 2: map a leading string to a vector, equivalent to { paste0('a_', 1:9) }
+   ['a_' + str(i) for i in range(1, 10)]
+
+   # usage 3: combine a string vector, equivalent to { paste(c('a', 'b', 'c'), collapse = ' ') }
+   ' '.join(['a', 'b', 'c'])",
+
+  # 2.1 read csv #####
+   # rpy("read.csv")
+   R_code == "read.csv" ~ " [read csv file - Python code]
+   import pandas as pd
+   pd.read_csv()",
 
     TRUE ~ "not found"
   )

@@ -9,11 +9,28 @@
 #' @export
 find_R_code <- function(goal){
   code <- dplyr::case_when(
-    # 1.1 directory #####
-    # find_R_code("directory")
-    goal == "directory"  ~ " [check and set working directory]
+  # 1.1 directory #####
+   # find_R_code("directory")
+   stringr::str_detect(goal, "directory")  ~ " [check and set working directory in R]
    getwd()  # get working directory
    setwd()  # set working directory",
+
+  # 1.2 concatenate #####
+   # find_R_code("concatenate")
+   stringr::str_detect(goal, "concatenate")  ~ " [Concatenate Strings (multiple usage) in R]
+   # usage 1: concatenate strings
+   paste(1, ' ', 'a')
+
+   # usage 2: map a leading string to a vector
+   paste0('a_', 1:9)
+
+   # usage 3: combine a string vector
+   paste(c('a', 'b', 'c'), collapse = ' ')",
+
+  # 2.1 read csv #####
+   # find_R_code("read csv")
+   stringr::str_detect(goal, "csv")  ~ " [Read csv in R]
+   read.csv()",
 
     TRUE ~ "not found"
   )

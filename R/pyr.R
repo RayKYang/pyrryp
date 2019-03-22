@@ -9,13 +9,23 @@
 #' @export
 pyr <- function(Py_code){
   code <- dplyr::case_when(
-    # 1.1 directory
-    # pyr("os.chdir")
-    Py_code == "os.getcwd" ~ " [check working directory - R code]
+  # 1.1 directory #####
+   # pyr("os.chdir")
+   Py_code == "os.getcwd" ~ " [Check Working Directory - R Code]
    getwd()",
-    # pyr("os.chdir")
-    Py_code == "os.chdir" ~ " [set working directory - R code]
+   # pyr("os.chdir")
+   Py_code == "os.chdir" ~ " [Set Working Directory - R Code]
    setwd()",
+
+  # 1.2 .join() method #####
+  # pyr(".join")
+  Py_code == ".join" ~ " [concatenates each element of an iterable - R code]
+   paste(c('a', 'b', 'c'), collapse = ' ') # equivalent to { ' '.join(['a', 'b', 'c']) }",
+
+  # 2.1 read csv #####
+   # pyr("pandas.read_csv")
+   Py_code == "pandas.read_csv" ~ " [read csv file - R code]
+   read.csv()",
 
     TRUE ~ "not found"
   )

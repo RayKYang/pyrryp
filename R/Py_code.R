@@ -9,13 +9,24 @@
 #' @export
 find_Py_code <- function(goal){
   code <- dplyr::case_when(
-    # 1.1 directory #####
-    # 1.1 directory
-    # find_Py_code("directory")
-   stringr::str_detect(goal, "directory")  ~ " [check and set working directory]
+  # 1.1 directory #####
+   # 1.1 directory
+   # find_Py_code("directory")
+   stringr::str_detect(goal, "directory")  ~ " [Check and Set Working Directory in Python]
    import os
    os.getcwd()  # get working directory
    os.chdir()  # set working directory",
+
+  # 1.2 concatenate #####
+   # find_Py_code("concatenate")
+   stringr::str_detect(goal, "concatenate")  ~ " [Concatenates Each Element of An Iterable in Python]
+   ' '.join(['a', 'b', 'c'])",
+
+  # 2.1 read csv #####
+   # find_Py_code("read csv")
+   stringr::str_detect(goal, "csv")  ~ " [Read csv in Python]
+   import pandas as pd
+   pd.read_csv()",
 
     TRUE ~ "not found"
   )
